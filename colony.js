@@ -38,7 +38,7 @@ var colony = {
             if (template.MINERS.length > _.sum(creeps, c => c.memory.role === 'miner')) {
                 for (var minerTemplate in template.MINERS) {
                     var t = template.MINERS[minerTemplate];
-                    if (!creeps['Miner' + t.mineRoom + t.sourceIndex]) {
+                    if (!_.find(creeps, {name: 'Miner' + t.mineRoom + t.sourceIndex})) {
                         var body = roleMiner.getBody(energy);
                         if (body.length > 0) {
                             spawn.spawnCreep(body, 'Miner' + t.mineRoom + t.sourceIndex,
@@ -104,8 +104,8 @@ var colony = {
             else if (template.REMOTE_TRANSPORTS.length > _.sum(creeps, c => c.memory.role == 'remoteminetransport')) {
                 for (var rmTemp in template.REMOTE_TRANSPORTS) {
                     var t = template.REMOTE_TRANSPORTS[rmTemp];
-                    if (!creeps['RMTransport' + t.mineRoom + t.dropRoom + t.id]) {
-                        spawn.spawnCreep([CARRY, CARRY, CARRY, CARRY, MOVE, MOVE], 'RMTransport' + t.mineRoom + t.dropRoom + t.id,
+                    if (!_.find(creeps, {name: 'RMTransport' + t.mineRoom + t.dropRoom + t.id})) {
+                        var a = spawn.spawnCreep([CARRY, CARRY, CARRY, CARRY, MOVE, MOVE], 'RMTransport' + t.mineRoom + t.dropRoom + t.id,
                             {
                                 memory: {
                                     base: roomName,
@@ -114,7 +114,7 @@ var colony = {
                                     dropRoom: t.dropRoom
                                 }
                             });
-                        console.log('[' + roomName + '] Spawning transport: ' + t.mineRoom + ' to ' + t.dropRoom);
+                        console.log('[' + a + '] Spawning transport: ' + t.mineRoom + ' to ' + t.dropRoom);
                         break;
                     }
                 }
@@ -137,10 +137,10 @@ var colony = {
             }
 
             // CLAIMERS
-            else if (template.CLAIMERS.length > _.sum(creeps, c => c.memory.role == 'claimer') && e >= 1300) {
+            else if (template.CLAIMERS.length > _.sum(creeps, c => c.memory.role == 'claimer') && energy >= 1300) {
                 for (var cTemp in template.CLAIMERS) {
                     var t = template.CLAIMERS[cTemp];
-                    if (!creeps['Claimer' + t.claimRoom + t.id]) {
+                    if (!_.find(creeps, {name: 'Claimer' + t.claimRoom + t.id})) {
                         spawn.spawnCreep([MOVE, MOVE, CLAIM, CLAIM], 'Claimer' + t.claimRoom + t.id,
                             {
                                 memory: {
