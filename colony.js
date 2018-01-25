@@ -21,6 +21,16 @@ var colony = {
         var energy = room.energyAvailable;
         var spawn = Game.spawns[template.SPAWN];
 
+        var storage = room.find(FIND_MY_STRUCTURES, {filter: s => s.structureType == STRUCTURE_STORAGE});
+        const canDistribute = (storage.length > 0 && storage[0].store[RESOURCE_ENERGY] > DATA.DISTRIBUTE_LIMIT);        
+
+        // MANAGE TOWERS
+        var towers = room.find(FIND_MY_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_TOWER});
+        for (var n in towers) {
+            buildingTower.run(towers[n]);
+        }
+
+
         // SPAWNING
         if (!spawn.spawning && energy >= 200) {
 
@@ -34,7 +44,7 @@ var colony = {
                             spawn.spawnCreep(body, 'Miner' + t.mineRoom + t.sourceIndex,
                             {
                                 memory: { 
-                                    base: 'roomName',
+                                    base: roomName,
                                     role: 'miner', 
                                     mineRoom: t.mineRoom, 
                                     sourceIndex: t.sourceIndex, 
@@ -53,7 +63,7 @@ var colony = {
                 spawn.spawnCreep(WARRIOR_BODY, 'Warrior' + Game.time,
                     {
                         memory: {
-                            base: 'roomName',
+                            base: roomName,
                             role: 'warrior',
                             isHurt: false
                         }
@@ -68,7 +78,7 @@ var colony = {
                     spawn.spawnCreep(body, 'DTransport' + Game.time,
                         {
                             memory: {
-                                base: 'roomName',
+                                base: roomName,
                                 role: 'droptransport',
                                 full: false
                             }
@@ -82,7 +92,7 @@ var colony = {
                 spawn.spawnCreep([MOVE, CARRY, CARRY, CARRY, CARRY, MOVE], 'Distributor' + Game.time,
                     {
                         memory: {
-                            base: 'roomName',
+                            base: roomName,
                             role: 'distributor',
                             full: false
                         }
@@ -98,7 +108,7 @@ var colony = {
                         spawn.spawnCreep([CARRY, CARRY, CARRY, CARRY, MOVE, MOVE], 'RMTransport' + t.mineRoom + t.dropRoom + t.id,
                             {
                                 memory: {
-                                    base: 'roomName',
+                                    base: roomName,
                                     role: 'remoteminetransport',
                                     mineRoom: t.mineRoom,
                                     dropRoom: t.dropRoom
@@ -117,7 +127,7 @@ var colony = {
                     spawn.spawnCreep(body, 'Builder' + Game.time,
                         {
                             memory: {
-                                base: 'roomName',
+                                base: roomName,
                                 role: 'builder',
                                 building: false
                             }
@@ -134,7 +144,7 @@ var colony = {
                         spawn.spawnCreep([MOVE, MOVE, CLAIM, CLAIM], 'Claimer' + t.claimRoom + t.id,
                             {
                                 memory: {
-                                    base: 'roomName',
+                                    base: roomName,
                                     role: 'claimer',
                                     claimRoom: t.claimRoom,
                                     id: t.id
@@ -153,19 +163,13 @@ var colony = {
                     spawn.spawnCreep(body, 'Upgrader' + Game.time, 
                         {
                             memory: {
-                                base: 'roomName',
+                                base: roomName,
                                 role: 'upgrader'
                             }
                         });
                     console.log('[' + roomName + '] Spawning Upgrader');
                 }
             }            
-        }
-
-        // MANAGE TOWERS
-        var towers = room.find(FIND_MY_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_TOWER});
-        for (var n in towers) {
-            buildingTower.run(towers[n]);
         }
 
     }

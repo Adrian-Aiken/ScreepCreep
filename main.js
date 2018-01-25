@@ -75,10 +75,6 @@ module.exports.loop = function () {
         }
     }
 
-    // DETERMINE DISTRIBUTORS
-    var storage = Game.getObjectById('5a5306cb87026a40d573f199');
-    const canDistribute = (storage && storage.store[RESOURCE_ENERGY] > DATA.DISTRIBUTE_LIMIT);
-
     // COLONY CODE
     var creepsByColony = _.groupBy(Game.creeps, 'memory.base');
     for (var colonyName in creepsByColony) {

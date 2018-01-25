@@ -9,7 +9,7 @@ var data = {
             MIN_TRANSPORTS: 6,
             MIN_BUILDERS: 1,
             MIN_UPGRADERS: 4,
-            MAX_DISTRIBUTOR: 1,
+            MAX_DISTRIBUTOR: 0,
 
             MINERS: [
                 { mineRoom: "W5N47", sourceIndex: 0 },
