@@ -6,12 +6,17 @@ var roleClaimer = {
             return;
         }
 
-        if (creep.room.controller.owner) {
+        if (creep.room.controller.owner) {            
             if (creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#00ff00'}});
             }
         } else {
-            if (creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+            var a = creep.claimController(creep.room.controller);
+            if (creep.memory.takeRoom && a == ERR_NOT_IN_RANGE) {
+                creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#00ff00'}});
+            }
+
+            else if (creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#00ff00'}});
             }
         }

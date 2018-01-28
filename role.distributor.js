@@ -24,7 +24,7 @@ var roleDistributor = {
                 }
             });
 
-            //if (!target)            
+            if (!target)            
             target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: (structure) => {
                     if (structure.structureType == STRUCTURE_EXTENSION ||

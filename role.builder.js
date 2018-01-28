@@ -1,4 +1,4 @@
-// Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], 'TempBuilder', {memory: {role: 'builder'}});
+var roleDropTransport = require('role.droptransport');
 
 var roleBuilder = {
 
@@ -47,7 +47,11 @@ var roleBuilder = {
                         structure.store[RESOURCE_ENERGY] > 0;
                 }
             });
-            if (!source) return;
+
+            if (!source) {
+                roleDropTransport.run(creep);
+                return;
+            }
 
             if(creep.withdraw(source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});

@@ -105,7 +105,7 @@ var colony = {
                 for (var rmTemp in template.REMOTE_TRANSPORTS) {
                     var t = template.REMOTE_TRANSPORTS[rmTemp];
                     if (!_.find(creeps, {name: 'RMTransport' + t.mineRoom + t.dropRoom + t.id})) {
-                        var a = spawn.spawnCreep([CARRY, CARRY, CARRY, CARRY, MOVE, MOVE], 'RMTransport' + t.mineRoom + t.dropRoom + t.id,
+                        spawn.spawnCreep([CARRY, CARRY, CARRY, CARRY, MOVE, MOVE], 'RMTransport' + t.mineRoom + t.dropRoom + t.id,
                             {
                                 memory: {
                                     base: roomName,
@@ -114,7 +114,7 @@ var colony = {
                                     dropRoom: t.dropRoom
                                 }
                             });
-                        console.log('[' + a + '] Spawning transport: ' + t.mineRoom + ' to ' + t.dropRoom);
+                        console.log('[' + roomName + '] Spawning transport: ' + t.mineRoom + ' to ' + t.dropRoom);
                         break;
                     }
                 }
@@ -147,6 +147,7 @@ var colony = {
                                     base: roomName,
                                     role: 'claimer',
                                     claimRoom: t.claimRoom,
+                                    takeRoom: t.takeRoom,
                                     id: t.id
                                 }
                             });

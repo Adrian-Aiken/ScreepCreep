@@ -26,18 +26,11 @@ var roleWarrior = require('role.warrior');
 var roleControllerKiller = require('role.controlkiller');
 var roleDisributor = require('role.distributor');
 
-var MIN_TRANSPORTS = 6;
-var MIN_BUILDERS = 1;
-var MIN_UPGRADERS = 4;
-var MIN_WALLBUILDER = 0;
-
-var MAX_DISTRIBUTOR = 0;
-
 var NUM_WARRIORS = 0;
 var WARRIOR_BODY = [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH,
-                    MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+                    MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
                     ATTACK, ATTACK, ATTACK, ATTACK, ATTACK,
-                    HEAL, HEAL];
+                    HEAL, HEAL, HEAL];
 
 let MINERS = [
     { mineRoom: "W5N47", sourceIndex: 0 },
@@ -77,7 +70,7 @@ module.exports.loop = function () {
 
     // COLONY CODE
     var creepsByColony = _.groupBy(Game.creeps, 'memory.base');
-    for (var colonyName in creepsByColony) {
+    for (var colonyName in DATA.Rooms) {
         if (colonyName === 'undefined' ||
             colonyName === 'roomName') continue;
         colony.run(colonyName, creepsByColony[colonyName]);
@@ -91,6 +84,9 @@ module.exports.loop = function () {
             Game.spawns['Spawn1'].spawnCreep(WARRIOR_BODY, 'Warrior' + Game.time, {memory: {role: 'warrior', isHurt: false, defendRoom: creep.room.name}});
             console.log('Spawning Warrior for ' + name);
         }
+
+        //Game.spawns['Spawn1'].spawnCreep(WARRIOR_BODY, 'Warrior' + Game.time, {memory: {role: 'warrior', isHurt: false, defendRoom: 'W8N46'}});
+        //console.log('Spawning Warrior');
 
         switch (creep.memory.role) {
             case 'harvester':
