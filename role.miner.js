@@ -4,7 +4,7 @@ var roleMiner = {
 
     getBody: function(energy) {
         const fullBody = [MOVE, WORK, WORK, WORK, WORK, WORK, MOVE];
-        const minParts = 2;
+        const minParts = 6;
         let body = [];
 
         for (var partID in fullBody) {

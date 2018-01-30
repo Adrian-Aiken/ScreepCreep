@@ -11,8 +11,7 @@ var roleClaimer = {
                 creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#00ff00'}});
             }
         } else {
-            var a = creep.claimController(creep.room.controller);
-            if (creep.memory.takeRoom && a == ERR_NOT_IN_RANGE) {
+            if (creep.memory.takeRoom && creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#00ff00'}});
             }
 
